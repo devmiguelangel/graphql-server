@@ -3,10 +3,6 @@ import path from 'path';
 
 
 class Comment extends Model {
-  constructor() {
-    super.constructor();
-  }
-
   static tableName = 'comments';
 
   static relationMappings = {
@@ -20,3 +16,5 @@ class Comment extends Model {
     }
   }
 }
+
+export default Comment;

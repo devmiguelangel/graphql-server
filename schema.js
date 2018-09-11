@@ -1,7 +1,27 @@
 import { gql } from 'apollo-server-express';
 import faker from 'faker';
+import './app/db/config';
+import Professor from './app/models/Professor';
+import Course from './app/models/Course';
 
-const courses = [
+
+const getProfessors = async (id = null) => {
+  if (id) {
+    return await Professor.query().eager('courses').findById(id);
+  }
+
+  return await Professor.query().eager('courses');
+}
+
+const getCourses = async (id = null) => {
+  if (id) {
+    return await Course.query().eager('[professor, comments]').findOne({id});
+  }
+
+  return await Course.query().eager('[professor, comments]');
+}
+
+/* const courses = [
   {
     id: 1,
     title: 'Harry Potter and the Chamber of Secrets',
@@ -14,7 +34,7 @@ const courses = [
     id: 3,
     title: 'Jurassic Park',
   },
-];
+]; */
 
 // GraphQL schema
 const typeDefs = gql`
@@ -55,10 +75,14 @@ const typeDefs = gql`
   }
 `;
 
+
 // A map of functions which return data for the schema.
 const resolvers = {
   Query: {
-    professors: () => getProfessors()
+    professors: () => getProfessors(),
+    professor: (rootValue, args) => getProfessors(args.id),
+    courses: () => getCourses(),
+    course: (rootValue, args) => getCourses(args.id),
   }
 };
 

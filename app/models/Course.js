@@ -1,9 +1,5 @@
 import { Model } from 'objection';
 import path from 'path';
-import knex from 'knex';
-import knexfile from './../db/knexfile';
-
-Model.knex(knex(knexfile.development));
 
 
 class Course extends Model {
