@@ -1,5 +1,15 @@
 {
   "presets": [
-    "@babel/preset-env"
+    ["@babel/preset-env", {
+      "exclude": [
+        "transform-classes"
+      ]
+    }]
+  ],
+  "plugins": [
+    "transform-class-properties"
+  ],
+  "ignore": [
+    "node_modules/objection"
   ]
 }

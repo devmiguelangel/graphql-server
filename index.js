@@ -9,7 +9,7 @@ const PORT = 3000;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  mocks,
+  // mocks,
   // mockEntireSchema: false,
 });
 

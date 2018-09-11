@@ -1,7 +1,6 @@
 import { gql } from 'apollo-server-express';
 import faker from 'faker';
 
-
 const courses = [
   {
     id: 1,
@@ -19,16 +18,6 @@ const courses = [
 
 // GraphQL schema
 const typeDefs = gql`
-  # Course schema
-  type Course {
-    id: ID!
-    title: String!
-    description: String!
-    professor: Professor
-    rating: Float @deprecated(reason: "No creemos mas en los puntajes")
-    comments: [Comment]
-  }
-
   type Professor {
     id: ID!
     name: String!
@@ -42,6 +31,16 @@ const typeDefs = gql`
     FEMENINO
   }
 
+  # Course schema
+  type Course {
+    id: ID!
+    title: String!
+    description: String!
+    professor: Professor
+    rating: Float @deprecated(reason: "No creemos mas en los puntajes")
+    comments: [Comment]
+  }
+
   type Comment {
     id: ID!
     name: String!
@@ -49,17 +48,17 @@ const typeDefs = gql`
   }
 
   type Query {
-    courses: [Course]
     professors: [Professor]
-    course(id: Int): Course
     professor(id: Int): Professor
+    courses: [Course]
+    course(id: Int): Course
   }
 `;
 
 // A map of functions which return data for the schema.
 const resolvers = {
   Query: {
-    courses: () => courses
+    professors: () => getProfessors()
   }
 };
 
