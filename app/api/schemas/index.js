@@ -19,6 +19,10 @@ const typeDefs = gql`
     courses: [Course]
     course(id: Int): Course
   }
+
+  type Mutation {
+    professorCreate(input: ProfessorCreateInput): Professor
+  }
 `;
 
 export { typeDefs };

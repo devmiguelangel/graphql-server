@@ -11,6 +11,12 @@ const ProfessorSchema = `
     MASCULINO
     FEMENINO
   }
+
+  input ProfessorCreateInput {
+    name: String!
+    nationality: String!
+    gender: Gender
+  }
 `;
 
 export default ProfessorSchema;

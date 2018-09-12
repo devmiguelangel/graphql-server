@@ -18,6 +18,11 @@ const getCourses = async (id = null) => {
   return await Course.query().eager('[professor, comments]');
 }
 
+const professorCreate = async (data) => {
+  return await Professor.query().insert(data);
+}
+
+
 // A map of functions which return data for the schema.
 const resolvers = {
   Query: {
@@ -25,6 +30,10 @@ const resolvers = {
     professor: (rootValue, args) => getProfessors(args.id),
     courses: () => getCourses(),
     course: (rootValue, args) => getCourses(args.id),
+  },
+
+  Mutation: {
+    professorCreate: (_, args) => professorCreate(args.input),
   }
 };
 
