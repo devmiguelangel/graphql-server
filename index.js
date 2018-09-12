@@ -1,6 +1,8 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import { typeDefs, resolvers, mocks } from './schema';
+import './app/db/config';
+import { typeDefs } from './app/api/schemas';
+import resolvers from './app/api/resolvers';
 
 const app = express();
 
