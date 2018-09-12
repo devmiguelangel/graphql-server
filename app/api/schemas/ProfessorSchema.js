@@ -17,6 +17,12 @@ const ProfessorSchema = `
     nationality: String!
     gender: Gender
   }
+  
+  input ProfessorEditInput {
+    name: String
+    nationality: String
+    gender: Gender
+  }
 `;
 
 export default ProfessorSchema;

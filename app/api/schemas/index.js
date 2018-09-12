@@ -22,6 +22,7 @@ const typeDefs = gql`
 
   type Mutation {
     professorCreate(input: ProfessorCreateInput): Professor
+    professorEdit(professorId: Int!, input: ProfessorEditInput): Professor
   }
 `;
 

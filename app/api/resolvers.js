@@ -18,8 +18,12 @@ const getCourses = async (id = null) => {
   return await Course.query().eager('[professor, comments]');
 }
 
-const professorCreate = async (data) => {
-  return await Professor.query().insert(data);
+const professorCreate = async (args) => {
+  return await Professor.query().insert(args.input);
+}
+
+const professorEdit = async (args) => {
+  return await Professor.query().patchAndFetchById(args.professorId, args.input);
 }
 
 
@@ -33,7 +37,8 @@ const resolvers = {
   },
 
   Mutation: {
-    professorCreate: (_, args) => professorCreate(args.input),
+    professorCreate: (_, args) => professorCreate(args),
+    professorEdit: (_, args) => professorEdit(args),
   }
 };
 
