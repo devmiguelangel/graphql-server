@@ -24,6 +24,10 @@ const typeDefs = gql`
     professorCreate(input: ProfessorCreateInput): Professor
     professorEdit(professorId: Int!, input: ProfessorEditInput): Professor
     professorDelete(professorId: Int!): Professor
+
+    courseCreate(input: CourseCreateInput): Course
+    courseEdit(courseId: Int!, input: CourseEditInput): Course
+    courseDelete(courseId: Int!): Course
   }
 `;
 

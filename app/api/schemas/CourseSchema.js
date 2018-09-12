@@ -8,6 +8,19 @@ const CourseSchema = `
     rating: Float @deprecated(reason: "No creemos mas en los puntajes")
     comments: [Comment]
   }
+
+  input CourseCreateInput {
+    title: String!
+    description: String!
+    professorId: Int!
+  }
+  
+  input CourseEditInput {
+    title: String
+    description: String
+    professorId: Int
+    rating: Float
+  }
 `;
 
 export default CourseSchema;

@@ -54,6 +54,36 @@ const resolvers = {
     professorCreate: (_, args) => professorCreate(args),
     professorEdit: (_, args) => professorEdit(args),
     professorDelete: (_, args) => professorDelete(args),
+    
+    courseCreate: async (_, args) => {
+      args.input.professor_id = args.input.professorId;
+      delete args.input['professorId'];
+
+      return await Course.query().eager('professor').insert(args.input);
+    },
+    
+    courseEdit: async (_, args) => {
+      if ('professorId' in args.input) {
+        args.input.professor_id = args.input.professorId;
+        delete args.input['professorId'];
+      }
+
+      return await Course.query().eager('professor').patchAndFetchById(args.courseId, args.input);
+    },
+    
+    courseDelete: async (_, args) => {
+      const course = await Course.query().eager('professor').findOne({id: args.courseId});
+
+      if (course instanceof Course) {
+        const nRows = await Course.query().deleteById(args.courseId);
+
+        if (nRows > 0) {
+          return course;
+        }
+      }
+      
+      throw new Error(`El profesor con ID ${args.professorId} no se pudo eliminar :(`);
+    }
   }
 };
 
