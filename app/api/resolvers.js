@@ -26,6 +26,20 @@ const professorEdit = async (args) => {
   return await Professor.query().patchAndFetchById(args.professorId, args.input);
 }
 
+const professorDelete = async (args) => {
+  const professor = await Professor.query().findById(args.professorId);
+  
+  if (professor instanceof Professor) {
+    const nRows = await Professor.query().delete().where({id: args.professorId});
+
+    if (nRows > 0) {
+      return professor;
+    }
+  }
+
+  throw new Error(`El profesor con ID ${args.professorId} no se pudo eliminar :(`);
+}
+
 
 // A map of functions which return data for the schema.
 const resolvers = {
@@ -39,6 +53,7 @@ const resolvers = {
   Mutation: {
     professorCreate: (_, args) => professorCreate(args),
     professorEdit: (_, args) => professorEdit(args),
+    professorDelete: (_, args) => professorDelete(args),
   }
 };
 
