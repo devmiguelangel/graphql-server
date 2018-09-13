@@ -48,6 +48,29 @@ const resolvers = {
     professor: (rootValue, args) => getProfessors(args.id),
     courses: () => getCourses(),
     course: (rootValue, args) => getCourses(args.id),
+    search: async (_, params) => {
+      const professors = await Professor.query().where('name', 'like', `%${params.query}%`);
+      const courses = await Course.query().where('title', 'like', `%${params.query}%`);
+      
+      return [
+        ...professors,
+        ...courses,
+      ];
+    }
+  },
+
+  SearchResult: {
+    __resolveType(obj, context, info) {
+      if (obj instanceof Professor) {
+        return 'Professor';
+      }
+      
+      if (obj instanceof Course) {
+        return 'Course';
+      }
+      
+      return null;
+    }
   },
 
   Mutation: {

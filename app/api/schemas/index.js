@@ -13,11 +13,14 @@ const typeDefs = gql`
 
   ${CommentSchema}
 
+  union SearchResult = Professor | Course
+
   type Query {
     professors: [Professor]
     professor(id: Int): Professor
     courses: [Course]
     course(id: Int): Course
+    search(query: String!): [SearchResult]
   }
 
   type Mutation {
